@@ -100,9 +100,9 @@ class CausalGraph:
     def add_node_attributes(self, observed_node_names):
         for node_name in self._graph:
             if node_name in observed_node_names:
-                self._graph.nodes[node_name]["observed"] = "yes"
+                self._graph.node[node_name]["observed"] = "yes"
             else:
-                self._graph.nodes[node_name]["observed"] = "no"
+                self._graph.node[node_name]["observed"] = "no"
         return self._graph
 
     def add_unobserved_common_cause(self, observed_node_names):
@@ -111,7 +111,7 @@ class CausalGraph:
                                                        self.outcome_name)
         create_new_common_cause = True
         for node_name in current_common_causes:
-            if self._graph.nodes[node_name]["observed"] == "no":
+            if self._graph.node[node_name]["observed"] == "no":
                 create_new_common_cause = False
 
         if create_new_common_cause:
@@ -151,8 +151,8 @@ class CausalGraph:
 
     def all_observed(self, node_names):
         for node_name in node_names:
-            print(self._graph.nodes[node_name])
-            if self._graph.nodes[node_name]["observed"] != "yes":
+            print(self._graph.node[node_name])
+            if self._graph.node[node_name]["observed"] != "yes":
                 return False
 
         return True
@@ -160,7 +160,7 @@ class CausalGraph:
     def filter_unobserved_variables(self, node_names):
         observed_node_names = list()
         for node_name in node_names:
-            if self._graph.nodes[node_name]["observed"] == "yes":
+            if self._graph.node[node_name]["observed"] == "yes":
                 observed_node_names.append(node_name)
 
         return observed_node_names
